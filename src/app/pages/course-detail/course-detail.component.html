@@ -1,0 +1,64 @@
+<ng-container *ngIf="course as course">
+  <section class="detail-layout">
+    <img class="detail-image" [src]="course.image" [alt]="course.title" />
+
+    <div class="detail-copy">
+      <p class="eyebrow">
+        {{ course.level }} · Cập nhật
+        {{ course.updatedAt | date: "dd/MM/yyyy" }}
+      </p>
+      <h1>{{ course.title }}</h1>
+      <p>{{ course.description }}</p>
+
+      <div class="tag-row" aria-label="Chủ đề">
+        <span *ngFor="let tag of course.tags">{{ tag }}</span>
+      </div>
+
+      <dl class="mini-facts">
+        <div>
+          <dt>Route param</dt>
+          <dd>
+            <code>{{ course.id }}</code>
+          </dd>
+        </div>
+        <div>
+          <dt>Query `ref`</dt>
+          <dd>
+            <code>{{ cameFrom }}</code>
+          </dd>
+        </div>
+        <div>
+          <dt>Resolver</dt>
+          <dd>Đã nạp course trước khi render</dd>
+        </div>
+      </dl>
+
+      <div class="quick-actions">
+        <button
+          type="button"
+          class="button button-outline"
+          [disabled]="!navigation.previous"
+          (click)="goToCourse(navigation.previous)"
+        >
+          Bài trước
+        </button>
+        <button
+          type="button"
+          class="button"
+          [disabled]="!navigation.next"
+          (click)="goToCourse(navigation.next)"
+        >
+          Bài tiếp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tab-nav" aria-label="Tab khóa học">
+    <a routerLink="overview" routerLinkActive="active">Tổng quan</a>
+    <a routerLink="lessons" routerLinkActive="active">Bài học</a>
+    <a routerLink="reviews" routerLinkActive="active">Đánh giá</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</ng-container>

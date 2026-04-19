@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'angular-learning';
+  readonly loggedIn$ = this.authService.loggedIn$;
+
+  constructor(private readonly authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

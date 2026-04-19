@@ -1,0 +1,34 @@
+<section class="page-intro">
+  <p class="eyebrow">CanDeactivate</p>
+  <h1>Form có guard khi rời trang</h1>
+  <p>
+    Sửa một ô rồi bấm sang route khác. `pendingChangesGuard` sẽ gọi `canDeactivate()`
+    trong component trước khi Router cho phép điều hướng.
+  </p>
+</section>
+
+<form class="profile-form" (ngSubmit)="save()">
+  <label>
+    Tên
+    <input name="name" [(ngModel)]="name">
+  </label>
+
+  <label>
+    Vai trò
+    <input name="role" [(ngModel)]="role">
+  </label>
+
+  <label class="wide">
+    Ghi chú
+    <textarea name="note" rows="5" [(ngModel)]="note"></textarea>
+  </label>
+
+  <p class="notice warning" *ngIf="dirty">
+    Bạn đang có thay đổi chưa lưu. Thử bấm qua `/courses` để thấy guard hoạt động.
+  </p>
+
+  <div class="quick-actions">
+    <button type="submit" class="button">Lưu</button>
+    <button type="button" class="button button-outline" (click)="reset()">Khôi phục</button>
+  </div>
+</form>

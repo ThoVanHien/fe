@@ -1,0 +1,14 @@
+<section class="content-band" *ngIf="course as course">
+  <div class="section-heading">
+    <p class="eyebrow">Parent data</p>
+    <h2>Đánh giá</h2>
+  </div>
+
+  <div class="review-list">
+    <article class="review-card" *ngFor="let review of course.reviews">
+      <h3>{{ review.name }}</h3>
+      <p class="muted">{{ review.role }}</p>
+      <p>{{ review.comment }}</p>
+    </article>
+  </div>
+</section>

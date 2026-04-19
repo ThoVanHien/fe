@@ -1,0 +1,62 @@
+<section class="page-intro">
+  <p class="eyebrow">Angular Router</p>
+  <h1>Demo Router đầy đủ trong một app nhỏ</h1>
+  <p>
+    Đi qua từng đường dẫn để thấy Router đổi component, giữ layout cha,
+    đọc URL, chặn truy cập, preload dữ liệu và load module khi cần.
+  </p>
+
+  <div class="quick-actions">
+    <a class="button" routerLink="/courses" [queryParams]="{ level: 'Intermediate' }">Mở query params</a>
+    <a class="button button-outline" routerLink="/courses/angular-router/lessons" [queryParams]="{ ref: 'dashboard' }">
+      Mở child route
+    </a>
+    <a class="button button-outline" routerLink="/admin">Thử lazy guard</a>
+  </div>
+</section>
+
+<section class="topic-grid" aria-label="Các phần router chính">
+  <article class="topic-card">
+    <span class="topic-number">01</span>
+    <h2>Route config</h2>
+    <p>`AppRoutingModule` khai báo redirect, route thường, route có param, child route, lazy module và wildcard.</p>
+    <a routerLink="/classes">Đi qua redirect `/classes`</a>
+  </article>
+
+  <article class="topic-card">
+    <span class="topic-number">02</span>
+    <h2>URL state</h2>
+    <p>Trang khóa học đọc `q`, `level`, `missing` từ query params để filter và báo lỗi điều hướng.</p>
+    <a routerLink="/courses" [queryParams]="{ q: 'router', level: 'Intermediate' }">Filter bằng URL</a>
+  </article>
+
+  <article class="topic-card">
+    <span class="topic-number">03</span>
+    <h2>Guard</h2>
+    <p>`canMatch` chặn lazy admin trước khi tải module, `canDeactivate` bảo vệ form đang sửa.</p>
+    <a routerLink="/profile">Mở form guard</a>
+  </article>
+
+  <article class="topic-card">
+    <span class="topic-number">04</span>
+    <h2>Resolver</h2>
+    <p>Trang chi tiết lấy course từ `courseResolver` trước khi render các tab con.</p>
+    <a routerLink="/courses/angular-router/overview" [queryParams]="{ ref: 'resolver-card' }">Xem resolver</a>
+  </article>
+</section>
+
+<section class="content-band">
+  <div class="section-heading">
+    <p class="eyebrow">Route map</p>
+    <h2>Các URL nên thử</h2>
+  </div>
+
+  <div class="route-list">
+    <a routerLink="/dashboard"><code>/dashboard</code><span>Trang tổng quan</span></a>
+    <a routerLink="/courses" [queryParams]="{ q: 'form' }"><code>/courses?q=form</code><span>Query params</span></a>
+    <a routerLink="/courses/angular-router"><code>/courses/:id</code><span>Route params + resolver</span></a>
+    <a routerLink="/courses/angular-router/reviews"><code>/courses/:id/reviews</code><span>Child route</span></a>
+    <a routerLink="/admin"><code>/admin</code><span>Lazy module + canMatch</span></a>
+    <a routerLink="/abc-xyz"><code>/**</code><span>Wildcard 404</span></a>
+  </div>
+</section>

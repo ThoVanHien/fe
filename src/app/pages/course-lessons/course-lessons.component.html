@@ -1,0 +1,16 @@
+<section class="content-band" *ngIf="course as course">
+  <div class="section-heading">
+    <p class="eyebrow">Nested URL</p>
+    <h2>Bài học</h2>
+  </div>
+
+  <ol class="lesson-list">
+    <li *ngFor="let lesson of course.lessons">
+      <span>{{ lesson.id }}</span>
+      <div>
+        <h3>{{ lesson.title }}</h3>
+        <p>{{ lesson.duration }} · {{ lesson.unlocked ? 'Đã mở' : 'Khóa' }}</p>
+      </div>
+    </li>
+  </ol>
+</section>

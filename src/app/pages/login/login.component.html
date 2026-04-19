@@ -1,0 +1,20 @@
+<section class="page-intro narrow">
+  <p class="eyebrow">canMatch guard</p>
+  <h1>Đăng nhập demo</h1>
+  <p>
+    Route `/admin` dùng `canMatch`. Khi chưa đăng nhập, Router chuyển sang trang này
+    kèm query param `returnUrl`.
+  </p>
+
+  <p class="notice">Sau khi đăng nhập, Router sẽ quay lại: <code>{{ returnUrl }}</code></p>
+
+  <ng-container *ngIf="loggedIn$ | async; else loginButton">
+    <div class="quick-actions">
+      <a class="button" [routerLink]="returnUrl">Quay lại admin</a>
+    </div>
+  </ng-container>
+
+  <ng-template #loginButton>
+    <button type="button" class="button" (click)="login()">Đăng nhập bằng tài khoản demo</button>
+  </ng-template>
+</section>

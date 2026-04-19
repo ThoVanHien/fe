@@ -1,0 +1,26 @@
+<section class="content-band" *ngIf="course as course">
+  <div class="section-heading">
+    <p class="eyebrow">Child route</p>
+    <h2>Tổng quan</h2>
+  </div>
+
+  <p>
+    Tab này là route con `overview`. Component con đọc dữ liệu từ parent route qua
+    `ActivatedRoute.parent.data`, nên không cần gọi service lại.
+  </p>
+
+  <dl class="definition-list">
+    <div>
+      <dt>Giảng viên</dt>
+      <dd>{{ course.author }}</dd>
+    </div>
+    <div>
+      <dt>Số bài học</dt>
+      <dd>{{ course.lessons.length }} bài</dd>
+    </div>
+    <div>
+      <dt>URL hiện tại</dt>
+      <dd><code>/courses/{{ course.id }}/overview</code></dd>
+    </div>
+  </dl>
+</section>

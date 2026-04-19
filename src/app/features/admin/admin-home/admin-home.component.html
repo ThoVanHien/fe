@@ -1,0 +1,28 @@
+<section class="page-intro">
+  <p class="eyebrow">Lazy loading</p>
+  <h1>Admin module đã được tải</h1>
+  <p>
+    Route `/admin` dùng `loadChildren`. Module này chỉ được import sau khi
+    `canMatch` trả về `true`.
+  </p>
+
+  <dl class="mini-facts">
+    <div>
+      <dt>Kiểu route</dt>
+      <dd><code>loadChildren</code></dd>
+    </div>
+    <div>
+      <dt>Routing module</dt>
+      <dd><code>RouterModule.forChild</code></dd>
+    </div>
+    <div>
+      <dt>Load lúc</dt>
+      <dd>{{ loadedAt | date: 'HH:mm:ss' }}</dd>
+    </div>
+  </dl>
+
+  <div class="quick-actions">
+    <a class="button" routerLink="/admin/reports">Mở route con trong admin</a>
+    <a class="button button-outline" routerLink="/dashboard">Về tổng quan</a>
+  </div>
+</section>

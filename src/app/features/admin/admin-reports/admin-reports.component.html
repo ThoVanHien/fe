@@ -1,0 +1,17 @@
+<section class="content-band">
+  <div class="section-heading">
+    <p class="eyebrow">Admin child route</p>
+    <h1>Báo cáo routing</h1>
+  </div>
+
+  <div class="route-list">
+    <div *ngFor="let row of rows">
+      <code>{{ row.label }}</code>
+      <span>{{ row.value }}</span>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <a class="button button-outline" routerLink="/admin">Quay lại admin</a>
+  </div>
+</section>

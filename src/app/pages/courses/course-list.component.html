@@ -1,0 +1,59 @@
+<section class="page-intro">
+  <p class="eyebrow">Query params</p>
+  <h1>Danh sách khóa học</h1>
+  <p>
+    Bộ lọc dưới đây ghi trạng thái lên URL. Refresh trang hoặc gửi link cho người khác,
+    Router vẫn khôi phục đúng `q` và `level`.
+  </p>
+</section>
+
+<form class="filter-bar" (ngSubmit)="updateFilters()">
+  <label>
+    Từ khóa
+    <input
+      name="searchTerm"
+      type="search"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="updateFilters()"
+      placeholder="router, guard, form..."
+    >
+  </label>
+
+  <label>
+    Cấp độ
+    <select name="selectedLevel" [(ngModel)]="selectedLevel" (ngModelChange)="updateFilters()">
+      <option *ngFor="let level of levels" [ngValue]="level">{{ level === 'all' ? 'Tất cả' : level }}</option>
+    </select>
+  </label>
+
+  <button type="button" class="button button-outline" (click)="clearFilters()">Xóa lọc</button>
+</form>
+
+<p class="notice warning" *ngIf="missingId">
+  Guard không tìm thấy course `{{ missingId }}` nên đã đưa bạn về danh sách.
+</p>
+
+<section class="course-grid" aria-label="Khóa học">
+  <article class="course-card" *ngFor="let course of filteredCourses">
+    <img [src]="course.image" [alt]="course.title">
+
+    <div class="course-card-body">
+      <p class="eyebrow">{{ course.level }}</p>
+      <h2>{{ course.title }}</h2>
+      <p>{{ course.summary }}</p>
+
+      <div class="tag-row" aria-label="Chủ đề">
+        <span *ngFor="let tag of course.tags">{{ tag }}</span>
+      </div>
+
+      <a class="button" [routerLink]="['/courses', course.id]" [queryParams]="{ ref: 'list' }">
+        Xem chi tiết
+      </a>
+    </div>
+  </article>
+</section>
+
+<section class="empty-state" *ngIf="filteredCourses.length === 0">
+  <h2>Không có khóa học phù hợp</h2>
+  <p>Thử xóa bớt từ khóa hoặc đổi cấp độ trong URL.</p>
+</section>

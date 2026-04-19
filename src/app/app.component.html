@@ -1,0 +1,34 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/dashboard" aria-label="Về trang tổng quan">
+      <span class="brand-mark">R</span>
+      <span>
+        <strong>Router Lab</strong>
+        <small>Angular 17 NgModule</small>
+      </span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Điều hướng chính">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tổng quan</a>
+      <a routerLink="/courses" routerLinkActive="active">Khóa học</a>
+      <a routerLink="/profile" routerLinkActive="active">Form guard</a>
+      <a routerLink="/admin" routerLinkActive="active">Admin lazy</a>
+      <a routerLink="/missing-demo" routerLinkActive="active">404</a>
+    </nav>
+
+    <ng-container *ngIf="loggedIn$ | async; else signedOut">
+      <div class="auth-chip">
+        <span>Admin đã mở</span>
+        <button type="button" (click)="logout()">Đăng xuất</button>
+      </div>
+    </ng-container>
+
+    <ng-template #signedOut>
+      <a class="button button-outline" routerLink="/login" [queryParams]="{ returnUrl: '/admin' }">Đăng nhập</a>
+    </ng-template>
+  </header>
+
+  <main class="route-frame">
+    <router-outlet></router-outlet>
+  </main>
+</div>
