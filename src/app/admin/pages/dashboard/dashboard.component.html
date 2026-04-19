@@ -1,0 +1,70 @@
+<section class="admin-page">
+  <div class="section-heading compact">
+    <p class="eyebrow">Dashboard</p>
+    <h2>TOEIC content health</h2>
+  </div>
+
+  <div class="metric-grid">
+    <mat-card class="metric-card">
+      <span>Courses</span>
+      <strong>{{ courses.length }}</strong>
+    </mat-card>
+    <mat-card class="metric-card">
+      <span>Lessons</span>
+      <strong>{{ lessonCount }}</strong>
+    </mat-card>
+    <mat-card class="metric-card">
+      <span>Guides</span>
+      <strong>{{ stats.publishedPosts }}</strong>
+    </mat-card>
+    <mat-card class="metric-card">
+      <span>Monthly views</span>
+      <strong>{{ stats.monthlyViews | number }}</strong>
+    </mat-card>
+  </div>
+
+  <div class="admin-grid">
+    <mat-card class="panel">
+      <div class="section-heading compact">
+        <p class="eyebrow">Recent lessons</p>
+        <mat-card-title>Fresh practice material</mat-card-title>
+      </div>
+
+      <article class="ranked-post compact-rank" *ngFor="let lesson of recentLessons; trackBy: trackByLessonId">
+        <div class="lesson-order">{{ lesson.order }}</div>
+        <div>
+          <h3>{{ lesson.title }}</h3>
+          <p>{{ lesson.level }} · {{ lesson.durationMinutes }} min</p>
+        </div>
+      </article>
+
+      <a mat-stroked-button color="primary" routerLink="/admin/lessons">Add lesson</a>
+    </mat-card>
+
+    <mat-card class="panel">
+      <div class="section-heading compact">
+        <p class="eyebrow">Access</p>
+        <mat-card-title>Team status</mat-card-title>
+      </div>
+
+      <dl class="status-list">
+        <div>
+          <dt>Active users</dt>
+          <dd>{{ activeUsers }}</dd>
+        </div>
+        <div>
+          <dt>Enabled rights</dt>
+          <dd>{{ enabledRights }}</dd>
+        </div>
+        <div>
+          <dt>Categories</dt>
+          <dd>{{ stats.categories }}</dd>
+        </div>
+      </dl>
+
+      <button mat-flat-button color="primary" type="button" *appHasRole="'Admin'" routerLink="/admin/rights">
+        Review rights
+      </button>
+    </mat-card>
+  </div>
+</section>

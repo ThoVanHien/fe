@@ -1,0 +1,50 @@
+<ng-container *ngIf="course && lesson; else missingLesson">
+  <section class="lesson-hero">
+    <div>
+      <a class="back-link" [routerLink]="['/courses', course.slug]">Back to {{ course.title }}</a>
+      <p class="eyebrow">{{ course.title }}</p>
+      <h1>{{ lesson.title }}</h1>
+      <p>{{ lesson.summary }}</p>
+      <div class="article-meta">
+        <span>{{ lesson.level }}</span>
+        <span>{{ lesson.durationMinutes }} min</span>
+        <time [dateTime]="lesson.updatedAt">{{ lesson.updatedAt | date: 'mediumDate' }}</time>
+      </div>
+    </div>
+  </section>
+
+  <section class="article-shell lesson-shell">
+    <article class="article-content">
+      <p class="lead-paragraph">{{ lesson.content[0] }}</p>
+      <p *ngFor="let paragraph of lesson.content.slice(1); trackBy: trackByParagraph">
+        {{ paragraph }}
+      </p>
+
+      <div class="article-note">
+        <strong>Try this</strong>
+        <p>
+          Answer ten related questions, mark every miss, then write down the
+          one rule you will check first tomorrow.
+        </p>
+      </div>
+    </article>
+
+    <aside class="article-aside">
+      <mat-card>
+        <p class="eyebrow">Course</p>
+        <mat-card-title>{{ course.title }}</mat-card-title>
+        <p>{{ course.description }}</p>
+        <a mat-stroked-button color="primary" [routerLink]="['/courses', course.slug]">All lessons</a>
+      </mat-card>
+    </aside>
+  </section>
+</ng-container>
+
+<ng-template #missingLesson>
+  <section class="not-found">
+    <p class="eyebrow">Missing lesson</p>
+    <h1>This lesson is not available yet.</h1>
+    <p>The lesson might be a draft or using a different slug.</p>
+    <a mat-flat-button color="primary" routerLink="/courses">Back to courses</a>
+  </section>
+</ng-template>

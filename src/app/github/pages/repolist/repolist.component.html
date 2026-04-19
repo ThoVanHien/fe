@@ -1,0 +1,82 @@
+<section class="page-hero projects-hero">
+  <div>
+    <p class="eyebrow">Toolkit</p>
+    <h1>Open-source tools beside the TOEIC system.</h1>
+    <p>
+      Search a user or organization, scan recent repositories, and keep the
+      product workspace connected to real implementation notes.
+    </p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&w=900&q=80" alt="A developer desk with code and documentation open" loading="lazy">
+</section>
+
+<section class="section">
+  <form class="toolbar" (ngSubmit)="loadRepos()">
+    <mat-form-field appearance="outline">
+      <mat-label>GitHub name</mat-label>
+      <input matInput type="text" name="query" [(ngModel)]="query" placeholder="openai, angular, microsoft">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Source</mat-label>
+      <mat-select name="source" [(ngModel)]="source">
+        <mat-option value="org">Organization</mat-option>
+        <mat-option value="user">User</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">{{ loading ? 'Loading...' : 'Load repositories' }}</button>
+  </form>
+
+  <p class="notice" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Repository list</p>
+    <h2>{{ filteredRepos.length }} repositories</h2>
+  </div>
+
+  <mat-chip-set class="filter-row" *ngIf="repos.length > 0">
+    <mat-chip
+      *ngFor="let language of languages"
+      [class.selected]="selectedLanguage === language"
+      (click)="selectedLanguage = language">
+      {{ language }}
+    </mat-chip>
+  </mat-chip-set>
+
+  <div class="repo-grid">
+    <mat-card class="repo-card" *ngFor="let repo of filteredRepos; trackBy: trackByRepoId">
+      <div>
+        <mat-chip-set>
+          <mat-chip>{{ repo.language || 'Mixed' }}</mat-chip>
+        </mat-chip-set>
+        <mat-card-title>{{ repo.name }}</mat-card-title>
+        <p>{{ repo.description || 'No description yet.' }}</p>
+      </div>
+
+      <dl class="repo-stats">
+        <div>
+          <dt>Stars</dt>
+          <dd>{{ repo.stargazers_count | number }}</dd>
+        </div>
+        <div>
+          <dt>Forks</dt>
+          <dd>{{ repo.forks_count | number }}</dd>
+        </div>
+        <div>
+          <dt>Issues</dt>
+          <dd>{{ repo.open_issues_count | number }}</dd>
+        </div>
+      </dl>
+
+      <div class="card-footer">
+        <time [dateTime]="repo.updated_at">{{ repo.updated_at | date: 'mediumDate' }}</time>
+        <a mat-stroked-button color="primary" [href]="repo.html_url" target="_blank" rel="noopener noreferrer">Open repo</a>
+      </div>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<section class="page-hero courses-hero">
+  <div>
+    <p class="eyebrow">Courses</p>
+    <h1>{{ selectedCourse ? selectedCourse.title + ' lessons' : 'TOEIC paths for steady practice.' }}</h1>
+    <p>
+      {{ selectedCourse ? selectedCourse.description : 'Pick the skill that leaks points, finish one short lesson, then turn the mistake into a review rule.' }}
+    </p>
+  </div>
+  <img [src]="selectedCourse?.coverImage || 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80'" alt="TOEIC course workspace" loading="lazy">
+</section>
+
+<section class="section" *ngIf="!selectedCourse">
+  <div class="section-heading">
+    <p class="eyebrow">All paths</p>
+    <h2>Choose a practice path.</h2>
+  </div>
+
+  <div class="course-grid">
+    <a class="course-card-link" [routerLink]="[course.slug]" *ngFor="let course of courses; trackBy: trackByCourseId">
+      <mat-card class="course-card">
+        <img [src]="course.coverImage" [alt]="course.title" loading="lazy">
+        <mat-card-content>
+          <mat-card-title>{{ course.title }}</mat-card-title>
+          <p>{{ course.description }}</p>
+          <mat-chip-set>
+            <mat-chip *ngFor="let stack of course.techStack; trackBy: trackByStack">{{ stack }}</mat-chip>
+          </mat-chip-set>
+          <span class="read-more">{{ course.lessons.length }} lessons</span>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</section>
+
+<section class="section" *ngIf="selectedCourse as course">
+  <div class="section-heading">
+    <p class="eyebrow">{{ course.title }}</p>
+    <h2>Lesson list.</h2>
+  </div>
+
+  <div class="lesson-list">
+    <a class="lesson-card-link" [routerLink]="['/courses', course.slug, 'lessons', lesson.slug]" *ngFor="let lesson of course.lessons; trackBy: trackByLessonId">
+      <mat-card class="lesson-card">
+        <div class="lesson-order">{{ lesson.order }}</div>
+        <div>
+          <mat-card-title>{{ lesson.title }}</mat-card-title>
+          <p>{{ lesson.summary }}</p>
+          <div class="meta-line">
+            <span>{{ lesson.level }}</span>
+            <span>{{ lesson.durationMinutes }} min</span>
+            <time [dateTime]="lesson.updatedAt">{{ lesson.updatedAt | date: 'mediumDate' }}</time>
+          </div>
+        </div>
+      </mat-card>
+    </a>
+  </div>
+</section>

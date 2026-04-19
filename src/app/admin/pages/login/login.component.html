@@ -1,0 +1,23 @@
+<section class="admin-login-page">
+  <mat-card class="login-card">
+    <p class="eyebrow">Admin login</p>
+    <mat-card-title>Manage lessons, guides, and review content.</mat-card-title>
+    <p>Mock account for now. Later, this form can call your backend auth API.</p>
+
+    <form class="form-panel" (ngSubmit)="login()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="email" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="password" [(ngModel)]="password" required>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">Login as admin</button>
+
+      <p class="notice" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+  </mat-card>
+</section>

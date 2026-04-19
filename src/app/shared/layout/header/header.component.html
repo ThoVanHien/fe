@@ -1,0 +1,45 @@
+<mat-toolbar class="site-header">
+  <a class="brand" routerLink="/home" aria-label="Go to BLOG home">
+    <span class="brand-mark">Đ</span>
+    <span>BLOG</span>
+  </a>
+
+  <nav class="main-nav" aria-label="Primary navigation">
+    <a
+      mat-button
+      routerLink="/home"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Overview</a
+    >
+    <a mat-button routerLink="/blogs" routerLinkActive="active-link">Guides</a>
+    <button mat-button [matMenuTriggerFor]="coursesMenu">Learning paths</button>
+    <mat-menu #coursesMenu="matMenu">
+      <a mat-menu-item routerLink="/courses">All paths</a>
+      <a
+        mat-menu-item
+        *ngFor="let course of courses"
+        [routerLink]="['/courses', course.slug]"
+      >
+        {{ course.title }}
+      </a>
+    </mat-menu>
+    <a mat-button routerLink="/github" routerLinkActive="active-link"
+      >Toolkit</a
+    >
+    <a mat-button routerLink="/home/about-us" routerLinkActive="active-link"
+      >Method</a
+    >
+    <a mat-button routerLink="/home/contact-us" routerLinkActive="active-link"
+      >Contact</a
+    >
+    <span class="status-badge"><span></span>Grammar system ready</span>
+    <a
+      mat-flat-button
+      color="primary"
+      routerLink="/admin/login"
+      routerLinkActive="active-link"
+      >Admin</a
+    >
+  </nav>
+</mat-toolbar>

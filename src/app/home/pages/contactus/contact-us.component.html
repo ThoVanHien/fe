@@ -1,0 +1,44 @@
+<section class="page-hero contact-hero">
+  <div>
+    <p class="eyebrow">Contact</p>
+    <h1>Have a TOEIC question, content idea, or class request?</h1>
+    <p>
+      Send a short message with your target score, current score, and the part
+      that feels most unstable.
+    </p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=900&q=80" alt="A notebook and study desk prepared for review" loading="lazy">
+</section>
+
+<section class="section contact-layout">
+  <mat-card>
+    <form class="form-panel" #contactForm="ngForm" (ngSubmit)="sendMessage()">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="contact.name" required placeholder="Nguyen Van A">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="contact.email" required email placeholder="you@example.com">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+        <textarea matInput name="message" [(ngModel)]="contact.message" required rows="6" placeholder="I am aiming for 750 and Part 5 is unstable..."></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="contactForm.invalid">Send message</button>
+
+      <p class="success-message" *ngIf="submitted">Message saved in the demo inbox.</p>
+    </form>
+  </mat-card>
+
+  <mat-card class="contact-note">
+    <p class="eyebrow">Direct links</p>
+    <mat-card-title>Open channels</mat-card-title>
+    <p>Email: hello&#64;dautoeic.test</p>
+    <p>Grammar hub: dautoeic.com/grammar</p>
+    <p>Location: Ho Chi Minh City, Vietnam</p>
+  </mat-card>
+</section>

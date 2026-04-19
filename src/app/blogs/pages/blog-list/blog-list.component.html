@@ -1,0 +1,38 @@
+<section class="page-hero blogs-hero">
+  <div>
+    <p class="eyebrow">Guides</p>
+    <h1>TOEIC notes that turn mistakes into rules.</h1>
+    <p>
+      Short practical writing about grammar signals, listening review, reading
+      evidence, and the study habits behind stable score growth.
+    </p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80" alt="A writing desk with notebook and laptop" loading="lazy">
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Popular guides</p>
+    <h2>Start with the patterns learners miss most.</h2>
+  </div>
+
+  <div class="post-grid">
+    <a class="post-link-card" [routerLink]="[post.slug]" *ngFor="let post of posts; trackBy: trackByPostId">
+      <mat-card class="post-card">
+        <img [src]="post.coverImage" [alt]="post.title" loading="lazy">
+        <mat-card-content class="post-card-body">
+          <mat-chip-set>
+            <mat-chip>{{ post.category }}</mat-chip>
+          </mat-chip-set>
+          <mat-card-title>{{ post.title }}</mat-card-title>
+          <p>{{ post.excerpt }}</p>
+          <div class="meta-line">
+            <span>{{ post.readingMinutes }} min read</span>
+            <span>{{ post.viewCount | number }} views</span>
+          </div>
+          <span class="read-more">Read guide</span>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</section>

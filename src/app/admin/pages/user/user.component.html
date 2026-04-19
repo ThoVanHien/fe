@@ -1,0 +1,102 @@
+<section class="admin-page">
+  <div class="section-heading compact">
+    <p class="eyebrow">Users</p>
+    <h2>Authors, teachers, and editors</h2>
+  </div>
+
+  <mat-card>
+    <form class="form-panel inline-form" #userForm="ngForm" (ngSubmit)="addUser()">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="newUser.name" required placeholder="Nguyen Minh Anh">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="newUser.email" required email placeholder="author@example.com">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>GitHub</mat-label>
+        <input matInput type="text" name="githubUsername" [(ngModel)]="newUser.githubUsername" required placeholder="github-name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select name="role" [(ngModel)]="newUser.role">
+          <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="userForm.invalid" *appHasRole="'Admin'">
+        Add user
+      </button>
+    </form>
+  </mat-card>
+
+  <mat-chip-set class="filter-row">
+    <mat-chip [class.selected]="selectedRole === 'All'" (click)="selectedRole = 'All'">
+      All
+    </mat-chip>
+    <mat-chip
+      *ngFor="let role of roles"
+      [class.selected]="selectedRole === role"
+      (click)="selectedRole = role">
+      {{ role }}
+    </mat-chip>
+  </mat-chip-set>
+
+  <div class="table-wrap">
+    <table mat-table [dataSource]="filteredUsers">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="githubUsername">
+        <th mat-header-cell *matHeaderCellDef>GitHub</th>
+        <td mat-cell *matCellDef="let user">{{ user.githubUsername }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-chip-set>
+            <mat-chip>{{ user.role }}</mat-chip>
+          </mat-chip-set>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-chip-set>
+            <mat-chip [class.status-active]="user.status === 'Active'" [class.status-muted]="user.status === 'Inactive'">
+              {{ user.status }}
+            </mat-chip>
+          </mat-chip-set>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user" class="actions">
+          <button mat-stroked-button type="button" (click)="toggleStatus(user.id)">
+            {{ user.status === 'Active' ? 'Deactivate' : 'Activate' }}
+          </button>
+          <button mat-stroked-button color="warn" type="button" (click)="removeUser(user.id)" *appHasRole="'Admin'">
+            Remove
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+    </table>
+  </div>
+</section>

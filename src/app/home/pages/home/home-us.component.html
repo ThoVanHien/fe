@@ -1,0 +1,122 @@
+<section class="hero blog-hero">
+  <div class="hero-content">
+    <p class="eyebrow">BLOG Grammar</p>
+    <h1>Build a TOEIC grammar system you can repeat.</h1>
+    <p>
+      Short lessons, focused drills, and review notes for learners who want a
+      clearer route through TOEIC Reading and Listening.
+    </p>
+    <div class="hero-actions">
+      <a mat-flat-button color="primary" routerLink="/courses">Explore paths</a>
+      <a mat-stroked-button class="hero-link" routerLink="/blogs"
+        >Read guides</a
+      >
+    </div>
+
+    <div class="hero-preview" aria-label="TOEIC learning dashboard preview">
+      <img
+        src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1100&q=80"
+        alt="Learners reviewing English notes at a desk"
+        loading="eager"
+      />
+      <div class="preview-panel">
+        <span>Today</span>
+        <strong>18 min grammar loop</strong>
+        <small>Part 5 tense check · 12 questions · 3 rules saved</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Learning paths</p>
+    <h2>Start with the skill that leaks points.</h2>
+  </div>
+
+  <div class="course-grid">
+    <a
+      class="course-card-link"
+      [routerLink]="['/courses', course.slug]"
+      *ngFor="let course of courses; trackBy: trackByCourseId"
+    >
+      <mat-card class="course-card">
+        <img [src]="course.coverImage" [alt]="course.title" loading="lazy" />
+        <mat-card-content>
+          <mat-card-title>{{ course.title }}</mat-card-title>
+          <p>{{ course.description }}</p>
+          <mat-chip-set>
+            <mat-chip *ngFor="let stack of course.techStack">{{
+              stack
+            }}</mat-chip>
+          </mat-chip-set>
+          <span class="read-more">{{ course.lessons.length }} lessons</span>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</section>
+
+<section class="section split-section">
+  <div>
+    <p class="eyebrow">Fresh lessons</p>
+    <h2>Keep the review loop warm.</h2>
+    <p>
+      Each lesson is small enough to finish in one sitting and specific enough
+      to turn into a rule for the next practice session.
+    </p>
+  </div>
+
+  <div class="mini-lesson-list">
+    <a
+      [routerLink]="['/courses', lesson.courseSlug, 'lessons', lesson.slug]"
+      *ngFor="let lesson of recentLessons; trackBy: trackByLessonId"
+    >
+      <strong>{{ lesson.title }}</strong>
+      <span>{{ lesson.level }} · {{ lesson.durationMinutes }} min</span>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Guides</p>
+    <h2>Readable notes for harder questions.</h2>
+  </div>
+
+  <div class="post-grid">
+    <a
+      class="post-link-card"
+      [routerLink]="['/blogs', post.slug]"
+      *ngFor="let post of featuredPosts; trackBy: trackByPostId"
+    >
+      <mat-card class="post-card">
+        <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+        <mat-card-content class="post-card-body">
+          <mat-chip-set>
+            <mat-chip>{{ post.category }}</mat-chip>
+          </mat-chip-set>
+          <mat-card-title>{{ post.title }}</mat-card-title>
+          <p>{{ post.excerpt }}</p>
+          <div class="meta-line">
+            <span>{{ post.readingMinutes }} min read</span>
+            <span>{{ post.viewCount | number }} views</span>
+          </div>
+          <span class="read-more">Read guide</span>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</section>
+
+<section class="section compact-cta">
+  <mat-card>
+    <p class="eyebrow">Content workspace</p>
+    <h2>Ship new TOEIC lessons without breaking the system.</h2>
+    <p>
+      Use the mock admin area to add lessons, manage authors, and review
+      publishing rights.
+    </p>
+    <a mat-flat-button color="primary" routerLink="/admin/login">Open admin</a>
+  </mat-card>
+</section>

@@ -1,0 +1,74 @@
+<section class="admin-page">
+  <div class="section-heading compact">
+    <p class="eyebrow">Lessons</p>
+    <h2>Add TOEIC lesson content</h2>
+  </div>
+
+  <mat-card>
+    <form class="form-panel lesson-editor" #lessonFormRef="ngForm" (ngSubmit)="addLesson()">
+      <mat-form-field appearance="outline">
+        <mat-label>Course</mat-label>
+        <mat-select name="courseSlug" [(ngModel)]="lessonForm.courseSlug">
+          <mat-option *ngFor="let course of courses; trackBy: trackByCourseId" [value]="course.slug">
+            {{ course.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lesson title</mat-label>
+        <input matInput name="title" [(ngModel)]="lessonForm.title" required placeholder="Connector traps in Part 6">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Summary</mat-label>
+        <input matInput name="summary" [(ngModel)]="lessonForm.summary" required placeholder="One sentence about what learners will practice">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Level</mat-label>
+        <mat-select name="level" [(ngModel)]="lessonForm.level">
+          <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Duration</mat-label>
+        <input matInput type="number" name="durationMinutes" [(ngModel)]="lessonForm.durationMinutes" min="5" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="wide-field">
+        <mat-label>Content</mat-label>
+        <textarea matInput name="content" [(ngModel)]="lessonForm.content" rows="8" required placeholder="Write each paragraph on a new line."></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="lessonFormRef.invalid">
+        Add lesson
+      </button>
+    </form>
+
+    <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+  </mat-card>
+
+  <div class="section-heading compact lesson-list-heading">
+    <p class="eyebrow">Current lessons</p>
+    <h2>{{ lessons.length }} lessons in mock data</h2>
+  </div>
+
+  <div class="lesson-list">
+    <a class="lesson-card-link" [routerLink]="['/courses', lesson.courseSlug, 'lessons', lesson.slug]" *ngFor="let lesson of lessons; trackBy: trackByLessonId">
+      <mat-card class="lesson-card">
+        <div class="lesson-order">{{ lesson.order }}</div>
+        <div>
+          <mat-card-title>{{ lesson.title }}</mat-card-title>
+          <p>{{ lesson.summary }}</p>
+          <div class="meta-line">
+            <span>{{ getCourseTitle(lesson.courseSlug) }}</span>
+            <span>{{ lesson.level }}</span>
+            <span>{{ lesson.durationMinutes }} min</span>
+          </div>
+        </div>
+      </mat-card>
+    </a>
+  </div>
+</section>

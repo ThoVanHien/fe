@@ -1,0 +1,82 @@
+<ng-container *ngIf="post as article; else missingArticle">
+  <section class="article-hero">
+    <div class="article-hero-copy">
+      <a class="back-link" routerLink="/blogs">Back to guides</a>
+      <p class="eyebrow">{{ article.category }}</p>
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.excerpt }}</p>
+
+      <div class="article-meta">
+        <span>{{ article.author }}</span>
+        <span>{{ article.readingMinutes }} min read</span>
+        <time [dateTime]="article.updatedAt">{{ article.updatedAt | date: 'mediumDate' }}</time>
+      </div>
+    </div>
+
+    <img [src]="article.coverImage" [alt]="article.title">
+  </section>
+
+  <section class="article-shell">
+    <article class="article-content">
+      <mat-chip-set class="article-tags">
+        <mat-chip *ngFor="let tag of article.tags; trackBy: trackByTag">{{ tag }}</mat-chip>
+      </mat-chip-set>
+
+      <p class="lead-paragraph">{{ article.content[0] }}</p>
+      <p *ngFor="let paragraph of article.content.slice(1); trackBy: trackByParagraph">
+        {{ paragraph }}
+      </p>
+    </article>
+
+    <aside class="article-aside">
+      <mat-card>
+      <p class="eyebrow">Guide info</p>
+        <dl class="article-stats">
+          <div>
+            <dt>Views</dt>
+            <dd>{{ article.viewCount | number }}</dd>
+          </div>
+          <div>
+            <dt>Published</dt>
+            <dd>{{ article.createdAt | date: 'mediumDate' }}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{{ article.status }}</dd>
+          </div>
+        </dl>
+      </mat-card>
+    </aside>
+  </section>
+
+  <section class="section related-section" *ngIf="relatedPosts.length > 0">
+    <div class="section-heading">
+      <p class="eyebrow">Read next</p>
+      <h2>More notes near this pattern.</h2>
+    </div>
+
+    <div class="post-grid">
+      <a class="post-link-card" [routerLink]="['/blogs', related.slug]" *ngFor="let related of relatedPosts; trackBy: trackByPostId">
+        <mat-card class="post-card">
+          <img [src]="related.coverImage" [alt]="related.title" loading="lazy">
+          <mat-card-content class="post-card-body">
+            <mat-chip-set>
+              <mat-chip>{{ related.category }}</mat-chip>
+            </mat-chip-set>
+            <mat-card-title>{{ related.title }}</mat-card-title>
+            <p>{{ related.excerpt }}</p>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #missingArticle>
+  <section class="not-found">
+    <p class="eyebrow">Missing guide</p>
+    <h1>This guide is not published yet.</h1>
+    <p>The guide might be a draft, archived, or using a different slug.</p>
+    <a mat-flat-button color="primary" routerLink="/blogs">Back to guides</a>
+  </section>
+</ng-template>

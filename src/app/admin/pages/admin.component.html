@@ -1,0 +1,17 @@
+<section class="admin-shell">
+  <mat-card class="admin-sidebar">
+    <p class="eyebrow">CMS</p>
+    <mat-card-title>TOEIC Control Room</mat-card-title>
+    <nav aria-label="Admin navigation">
+      <a mat-button routerLink="/admin/dashboard" routerLinkActive="active-link">Dashboard</a>
+      <a mat-button routerLink="/admin/lessons" routerLinkActive="active-link">Lessons</a>
+      <a mat-button routerLink="/admin/users" routerLinkActive="active-link">Users</a>
+      <a mat-button routerLink="/admin/rights" routerLinkActive="active-link">Rights</a>
+      <button mat-button type="button" (click)="logout()">Logout</button>
+    </nav>
+  </mat-card>
+
+  <div class="admin-content">
+    <router-outlet></router-outlet>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+<section class="page-hero about-hero">
+  <div>
+    <p class="eyebrow">Method</p>
+    <h1>A TOEIC study system built around repeatable decisions.</h1>
+    <p>
+      BLOG turns grammar, listening, and reading practice into small, testable
+      routines that learners can repeat without guessing what to do next.
+    </p>
+  </div>
+  <img
+    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+    alt="Learners discussing notes around a table"
+    loading="lazy"
+  />
+</section>
+
+<section class="section split-section">
+  <div>
+    <p class="eyebrow">Focus</p>
+    <h2>Short lessons, clear evidence, steady review.</h2>
+    <p>
+      Every path starts from the same principle: name the pattern, practice it
+      in context, then save one rule for the next session.
+    </p>
+  </div>
+
+  <div class="tag-cloud">
+    <mat-chip-set>
+      <mat-chip *ngFor="let skill of skills">{{ skill }}</mat-chip>
+    </mat-chip-set>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Timeline</p>
+    <h2>How the learning system grew.</h2>
+  </div>
+
+  <div class="timeline">
+    <mat-card *ngFor="let item of timeline">
+      <span>{{ item.year }}</span>
+      <mat-card-title>{{ item.title }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ item.text }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
