@@ -17,12 +17,14 @@
     </div>
     <div>
       <dt>Load lúc</dt>
-      <dd>{{ loadedAt | date: 'HH:mm:ss' }}</dd>
+      <dd>{{ loadedAt | date: "HH:mm:ss" }}</dd>
     </div>
   </dl>
 
   <div class="quick-actions">
-    <a class="button" routerLink="/admin/reports">Mở route con trong admin</a>
+    <a class="button" routerLink="/admin/reports"
+      >Mở trang reports trong admin</a
+    >
     <a class="button button-outline" routerLink="/dashboard">Về tổng quan</a>
   </div>
 </section>

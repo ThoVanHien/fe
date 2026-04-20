@@ -19,6 +19,7 @@ Sau đó mở `http://localhost:4200`.
 | `/dashboard` | Trang tổng quan, có nhiều `routerLink`. |
 | `/courses` | Danh sách khóa học, đọc filter từ query params. |
 | `/courses?q=router&level=Intermediate` | Query params dùng làm URL state. |
+| `/di` | Demo Dependency Injection: token, provider, hierarchical injector. |
 | `/courses/:id` | Route param, có guard kiểm tra id và resolver nạp dữ liệu. |
 | `/courses/:id/overview` | Child route mặc định của trang chi tiết. |
 | `/courses/:id/lessons` | Child route dùng chung layout cha. |
@@ -198,3 +199,25 @@ Route `**` phải đặt cuối:
 ```
 
 Nếu đặt sớm hơn, nó sẽ bắt hết URL và các route phía sau không còn cơ hội match.
+
+## Dependency Injection demo
+
+Route `/di` bo sung mot man hinh DI chay duoc trong cung app:
+
+- `providedIn: 'root'`: `DiSessionService`, `DiLoggerService`
+- `InjectionToken`: `DI_APP_CONFIG`, `DI_LOGGER`, `DI_CLOCK`, `DI_RUNTIME_NOTE`, `DI_SCOPE_LABEL`
+- Provider syntax:
+  - `useValue` cho object config
+  - `useExisting` cho alias logger
+  - `useClass` cho implementation cua dong ho
+  - `useFactory` cho chuoi runtime note
+- Hierarchical injector:
+  - `DiDemoComponent` provide `DI_SCOPE_LABEL = 'di-page'`
+  - `DiPanelComponent` override thanh `di-panel`
+  - `PanelStateService` duoc provide tai component, nen moi panel co instance rieng
+- Resolution flags:
+  - `@Self()` chi tim o injector hien tai
+  - `@SkipSelf()` bo qua injector hien tai, tim len cha
+  - `@Optional()` tranh nem loi khi khong tim thay dependency
+
+Muc tieu cua man hinh nay la de ban thay ngay tren UI su khac nhau giua singleton root va provider theo component scope.

@@ -10,6 +10,7 @@ import { CourseListComponent } from './pages/courses/course-list.component';
 import { CourseOverviewComponent } from './pages/course-overview/course-overview.component';
 import { CourseReviewsComponent } from './pages/course-reviews/course-reviews.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DiDemoComponent } from './pages/di-demo/di-demo.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'courses',
     component: CourseListComponent,
     title: 'Danh sách khóa học',
+  },
+  {
+    path: 'di',
+    component: DiDemoComponent,
+    title: 'Dependency Injection lab',
   },
   {
     path: 'courses/:id',

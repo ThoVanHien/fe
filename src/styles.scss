@@ -518,6 +518,25 @@ dd {
   border-top: 1px solid var(--line);
 }
 
+.di-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.di-panel-card {
+  align-self: start;
+}
+
+.di-probe {
+  margin-top: 1rem;
+}
+
+.di-probe p {
+  margin: 0.35rem 0 0;
+}
+
 @media (max-width: 960px) {
   .topbar {
     align-items: flex-start;
@@ -530,7 +549,8 @@ dd {
 
   .topic-grid,
   .course-grid,
-  .review-list {
+  .review-list,
+  .di-panel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -560,7 +580,8 @@ dd {
 
   .topic-grid,
   .course-grid,
-  .review-list {
+  .review-list,
+  .di-panel-grid {
     grid-template-columns: 1fr;
   }
 

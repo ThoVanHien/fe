@@ -11,6 +11,7 @@
     <a class="button button-outline" routerLink="/courses/angular-router/lessons" [queryParams]="{ ref: 'dashboard' }">
       Mở child route
     </a>
+    <a class="button button-outline" routerLink="/di">Mở DI lab</a>
     <a class="button button-outline" routerLink="/admin">Thử lazy guard</a>
   </div>
 </section>
@@ -43,6 +44,13 @@
     <p>Trang chi tiết lấy course từ `courseResolver` trước khi render các tab con.</p>
     <a routerLink="/courses/angular-router/overview" [queryParams]="{ ref: 'resolver-card' }">Xem resolver</a>
   </article>
+
+  <article class="topic-card">
+    <span class="topic-number">05</span>
+    <h2>Dependency injection</h2>
+    <p>So sánh provider ở root và ở component, token, alias, factory và cách Angular dò injector theo cây component.</p>
+    <a routerLink="/di">Mở DI demo</a>
+  </article>
 </section>
 
 <section class="content-band">
@@ -56,6 +64,7 @@
     <a routerLink="/courses" [queryParams]="{ q: 'form' }"><code>/courses?q=form</code><span>Query params</span></a>
     <a routerLink="/courses/angular-router"><code>/courses/:id</code><span>Route params + resolver</span></a>
     <a routerLink="/courses/angular-router/reviews"><code>/courses/:id/reviews</code><span>Child route</span></a>
+    <a routerLink="/di"><code>/di</code><span>Dependency injection</span></a>
     <a routerLink="/admin"><code>/admin</code><span>Lazy module + canMatch</span></a>
     <a routerLink="/abc-xyz"><code>/**</code><span>Wildcard 404</span></a>
   </div>
