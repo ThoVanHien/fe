@@ -10,9 +10,6 @@ import { CourseListComponent } from './pages/courses/course-list.component';
 import { CourseOverviewComponent } from './pages/course-overview/course-overview.component';
 import { CourseReviewsComponent } from './pages/course-reviews/course-reviews.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DiDemoComponent } from './pages/di-demo/di-demo.component';
-import { DiPanelComponent } from './pages/di-demo/di-panel.component';
-import { DiScopeProbeComponent } from './pages/di-demo/di-scope-probe.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -26,19 +23,12 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CourseOverviewComponent,
     CourseReviewsComponent,
     DashboardComponent,
-    DiDemoComponent,
-    DiPanelComponent,
-    DiScopeProbeComponent,
     LoginComponent,
     NotFoundComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

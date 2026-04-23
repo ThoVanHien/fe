@@ -9,9 +9,13 @@
     </a>
 
     <nav class="primary-nav" aria-label="Điều hướng chính">
-      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tổng quan</a>
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Tổng quan</a
+      >
       <a routerLink="/courses" routerLinkActive="active">Khóa học</a>
-      <a routerLink="/di" routerLinkActive="active">DI lab</a>
       <a routerLink="/profile" routerLinkActive="active">Form guard</a>
       <a routerLink="/admin" routerLinkActive="active">Admin lazy</a>
       <a routerLink="/missing-demo" routerLinkActive="active">404</a>
@@ -25,7 +29,12 @@
     </ng-container>
 
     <ng-template #signedOut>
-      <a class="button button-outline" routerLink="/login" [queryParams]="{ returnUrl: '/admin' }">Đăng nhập</a>
+      <a
+        class="button button-outline"
+        routerLink="/login"
+        [queryParams]="{ returnUrl: '/admin' }"
+        >Đăng nhập</a
+      >
     </ng-template>
   </header>
 
