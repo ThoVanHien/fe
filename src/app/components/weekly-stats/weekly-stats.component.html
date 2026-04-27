@@ -1,0 +1,30 @@
+<section class="stats-grid">
+  <article class="panel stat-card">
+    <h3>Tổng giờ thực tế tuần</h3>
+    <strong>{{ toHoursMinutes(summary.totalActualMinutes) }}</strong>
+    <p>Mục tiêu: {{ toHoursMinutes(standardWeekMinutes) }}</p>
+  </article>
+
+  <article class="panel stat-card">
+    <h3>OT tuần</h3>
+    <strong>{{ toHoursMinutes(summary.weeklyOtMinutes) }}</strong>
+    <p>Tối đa policy: {{ toHoursMinutes(maxPolicyOtMinutes) }}</p>
+  </article>
+
+  <article class="panel stat-card">
+    <h3>Thứ 6 cần làm</h3>
+    <strong>{{ toHoursMinutes(summary.requiredFridayWorkMinutes) }}</strong>
+    <p *ngIf="fridayCheckoutSuggestion">
+      Dự kiến ra: {{ fridayCheckoutSuggestion }}
+    </p>
+    <p *ngIf="!fridayCheckoutSuggestion">
+      Nhập check-in thứ 6 để có dự kiến giờ ra
+    </p>
+  </article>
+
+  <article class="panel stat-card" [class.violation-card]="summary.weeklyViolation">
+    <h3>Trạng thái tuần</h3>
+    <strong>{{ summary.weeklyViolation ? "VIOLATION_WEEKLY_LIMIT" : "Hợp lệ" }}</strong>
+    <p>Hard limit: {{ toHoursMinutes(maxWeekMinutes) }}</p>
+  </article>
+</section>

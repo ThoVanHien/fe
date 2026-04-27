@@ -1,0 +1,83 @@
+<main class="worktime-app">
+  <header class="hero">
+    <h1>Work Time Rules</h1>
+  </header>
+
+  <section class="panel form-panel">
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 16px;
+        align-items: start;
+      "
+    >
+      <div>
+        <div class="panel-title-row">
+          <h2>Sửa trực tiếp theo khoảng ngày</h2>
+        </div>
+        <div class="panel-title-row">
+          <div class="range-picker">
+            <label class="week-picker">
+              <span>From Date</span>
+              <p-calendar
+                styleClass="date-range-picker"
+                inputStyleClass="date-range-input"
+                [ngModel]="fromDateModel"
+                (ngModelChange)="onDatePickerChange('from', $event)"
+                dateFormat="yy-mm-dd"
+                [showIcon]="true"
+                iconDisplay="input"
+                appendTo="body"
+              ></p-calendar>
+            </label>
+            <label class="week-picker">
+              <span>To Date</span>
+              <p-calendar
+                styleClass="date-range-picker"
+                inputStyleClass="date-range-input"
+                [ngModel]="toDateModel"
+                (ngModelChange)="onDatePickerChange('to', $event)"
+                dateFormat="yy-mm-dd"
+                [showIcon]="true"
+                iconDisplay="input"
+                appendTo="body"
+              ></p-calendar>
+            </label>
+          </div>
+        </div>
+        <p class="hint">
+          Mặc định đang là tuần hiện tại. Dữ liệu tự lưu ngay khi bạn thay đổi
+          từng ô.
+        </p>
+        <button
+          type="button"
+          class="reset-manual-btn"
+          (click)="resetManualDataInRange()"
+          [disabled]="!hasManualDataInRange()"
+        >
+          Reset data
+        </button>
+        <p class="error" *ngIf="formError">{{ formError }}</p>
+      </div>
+
+      <app-weekly-stats
+        [summary]="weeklySummary"
+        [standardWeekMinutes]="policy.standardWeek"
+        [maxWeekMinutes]="policy.maxWeek"
+        [fridayCheckoutSuggestion]="fridayCheckoutSuggestion()"
+      ></app-weekly-stats>
+    </div>
+  </section>
+
+  <app-daily-work-table
+    [weekRows]="weekRows"
+    [rowErrors]="rowErrors"
+    (timeTextInput)="onTimeTextInput($event.date, $event.field, $event.value)"
+    (timeTextBlur)="onTimeTextBlur($event.date, $event.field)"
+    (timeArrowAdjust)="onTimeArrowAdjust($event.date, $event.field, $event.event)"
+    (draftChange)="onDraftChange($event)"
+    (halfDayToggle)="onHalfDayToggle($event)"
+    (oneDayToggle)="onOneDayToggle($event)"
+  ></app-daily-work-table>
+</main>

@@ -1,0 +1,46 @@
+.stats-grid {
+  margin-top: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(20, 99, 86, 0.06);
+}
+
+.stat-card {
+  padding: 14px;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.stat-card strong {
+  margin-top: 8px;
+  display: block;
+  font-size: 1.35rem;
+}
+
+.stat-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.violation-card {
+  border-color: var(--danger);
+  background: linear-gradient(140deg, #fff 0%, var(--danger-soft) 100%);
+}
+
+@media (max-width: 700px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

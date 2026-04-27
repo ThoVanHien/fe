@@ -1,0 +1,133 @@
+:host {
+  display: block;
+}
+
+.worktime-app {
+  --bg: #f6f4ef;
+  --panel: #ffffff;
+  --ink: #212121;
+  --muted: #5f5f5f;
+  --line: #ded8cc;
+  --accent: #146356;
+  --accent-soft: #ddf3ea;
+  --warn: #c27a00;
+  --warn-soft: #fff1d6;
+  --danger: #a5252a;
+  --danger-soft: #fde4e4;
+
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, #e6dfcf 0%, transparent 30%),
+    radial-gradient(circle at 90% 100%, #d3ebe3 0%, transparent 35%), var(--bg);
+  color: var(--ink);
+  font-family: Manrope, "Avenir Next", "Segoe UI", sans-serif;
+  padding: 24px;
+}
+
+.hero {
+  // max-width: 900px;
+  margin-bottom: 10px;
+}
+
+.hero h1 {
+  margin: 6px 0 10px;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  text-align: center;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(20, 99, 86, 0.06);
+}
+
+.form-panel {
+  padding: 16px;
+}
+
+.panel-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 5px 0;
+}
+
+.panel-title-row h2,
+.table-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.week-picker {
+  display: grid;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.range-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+}
+
+label span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.error {
+  margin-top: 12px;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.reset-manual-btn {
+  margin-top: 10px;
+  border: 1px solid #d8b6b7;
+  background: #fff2f2;
+  color: #7b1f23;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.reset-manual-btn:hover:not(:disabled) {
+  background: #ffe6e7;
+}
+
+.reset-manual-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .date-range-picker {
+  width: 100%;
+}
+
+:host ::ng-deep .date-range-input.p-inputtext {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #cfd8d3;
+  padding: 0 10px;
+}
+
+@media (max-width: 700px) {
+  .worktime-app {
+    padding: 12px;
+  }
+
+  .range-picker {
+    grid-template-columns: 1fr;
+  }
+}

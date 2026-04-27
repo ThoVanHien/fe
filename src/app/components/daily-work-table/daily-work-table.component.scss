@@ -1,0 +1,163 @@
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(20, 99, 86, 0.06);
+}
+
+.table-panel {
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.table-wrap {
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.work-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1400px;
+  table-layout: fixed;
+}
+
+.work-table col.c-day {
+  width: 120px;
+}
+
+.work-table col.c-time {
+  width: 150px;
+}
+
+.work-table col.c-flag {
+  width: 92px;
+}
+
+.work-table col.c-metric {
+  width: 110px;
+}
+
+.work-table col.c-status {
+  width: 200px;
+}
+
+.work-table col.c-suggest {
+  width: 230px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #ece7dd;
+  text-align: left;
+  vertical-align: middle;
+  padding: 10px 8px;
+}
+
+th {
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #656565;
+}
+
+td strong {
+  display: block;
+}
+
+td small {
+  color: var(--muted);
+}
+
+.col-center {
+  text-align: center;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 5px 9px;
+  border: 1px solid transparent;
+}
+
+.status.ok {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.status.warning {
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.status.violation {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.status.muted {
+  color: #727272;
+  background: #f2f2f2;
+}
+
+.suggestions small {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.time-input-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.exclude-input-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.timepicker-input {
+  width: 128px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid #cfd8d3;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbfa 100%);
+  padding: 0 12px;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #1f2a26;
+  text-align: center;
+}
+
+.timepicker-input::placeholder {
+  text-align: center;
+}
+
+.timepicker-input:enabled:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(20, 99, 86, 0.16);
+}
+
+.ot-cell {
+  text-align: center;
+}
+
+.row-error {
+  display: block;
+  margin-top: 4px;
+  color: var(--danger);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 700px) {
+  .table-panel {
+    padding: 12px;
+  }
+
+  .timepicker-input {
+    width: 118px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+}

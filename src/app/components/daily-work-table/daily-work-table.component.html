@@ -1,0 +1,135 @@
+<section class="panel table-panel">
+  <h2>Chi tiết theo ngày (sửa trực tiếp)</h2>
+  <div class="table-wrap">
+    <table class="work-table">
+      <colgroup>
+        <col class="c-day" />
+        <col class="c-time" />
+        <col class="c-time" />
+        <col class="c-flag" />
+        <col class="c-flag" />
+        <col class="c-flag" />
+        <col class="c-metric" />
+        <col class="c-metric" />
+        <col class="c-status" />
+        <col class="c-metric" />
+        <col class="c-suggest" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Ngày</th>
+          <th class="col-center">Check-in</th>
+          <th class="col-center">Check-out</th>
+          <th class="col-center">OT</th>
+          <th class="col-center">Half day</th>
+          <th class="col-center">One day off</th>
+          <th class="col-center">Exclude Time</th>
+          <th class="col-center">Working Time</th>
+          <th>Trạng thái</th>
+          <th class="col-center">OT Hours</th>
+          <th>Mốc giờ gợi ý</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of weekRows; trackBy: trackByDate">
+          <td>
+            <strong>{{ row.weekday }}</strong>
+            <small>{{ row.date }}</small>
+          </td>
+          <td class="col-center">
+            <div class="time-input-wrap">
+              <input
+                type="text"
+                class="timepicker-input"
+                [ngModel]="row.draft.checkIn"
+                (ngModelChange)="onTimeTextInput(row.date, 'checkIn', $event)"
+                (keydown)="onTimeArrowAdjust(row.date, 'checkIn', $event)"
+                (blur)="onTimeTextBlur(row.date, 'checkIn')"
+                [placeholder]="'--:--'"
+                [disabled]="row.draft.oneDay"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+          </td>
+          <td class="col-center">
+            <div class="time-input-wrap">
+              <input
+                type="text"
+                class="timepicker-input"
+                [ngModel]="row.draft.checkOut"
+                (ngModelChange)="onTimeTextInput(row.date, 'checkOut', $event)"
+                (keydown)="onTimeArrowAdjust(row.date, 'checkOut', $event)"
+                (blur)="onTimeTextBlur(row.date, 'checkOut')"
+                [placeholder]="'--:--'"
+                [disabled]="row.draft.oneDay"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+          </td>
+          <td class="ot-cell col-center">
+            <input
+              type="checkbox"
+              [(ngModel)]="row.draft.otApproved"
+              [disabled]="row.draft.halfDay || row.draft.oneDay"
+              (ngModelChange)="draftChange.emit(row.date)"
+            />
+          </td>
+          <td class="ot-cell col-center">
+            <input
+              type="checkbox"
+              [(ngModel)]="row.draft.halfDay"
+              (ngModelChange)="halfDayToggle.emit(row.date)"
+            />
+          </td>
+          <td class="ot-cell col-center">
+            <input
+              type="checkbox"
+              [(ngModel)]="row.draft.oneDay"
+              (ngModelChange)="oneDayToggle.emit(row.date)"
+            />
+          </td>
+          <td class="col-center">
+            <div class="exclude-input-wrap">
+              <input
+                type="text"
+                class="timepicker-input"
+                [ngModel]="row.draft.excludeTime"
+                (ngModelChange)="onTimeTextInput(row.date, 'excludeTime', $event)"
+                (keydown)="onTimeArrowAdjust(row.date, 'excludeTime', $event)"
+                (blur)="onTimeTextBlur(row.date, 'excludeTime')"
+                [placeholder]="'--:--'"
+                inputmode="decimal"
+                autocomplete="off"
+              />
+            </div>
+          </td>
+          <td class="col-center">
+            {{ row.actualMinutes ? toHoursMinutes(row.actualMinutes) : "-" }}
+          </td>
+          <td>
+            <span class="status" [class]="'status ' + row.status.tone">
+              {{ row.status.text }}
+            </span>
+            <small class="row-error" *ngIf="rowErrors[row.date]">
+              {{ rowErrors[row.date] }}
+            </small>
+          </td>
+          <td class="col-center">
+            {{ row.actualMinutes ? toHoursMinutes(row.otMinutes) : "-" }}
+          </td>
+          <td class="suggestions">
+            <ng-container *ngIf="row.suggestions.standardCheckout; else emptySuggestion">
+              <small>Chuẩn: {{ row.suggestions.standardCheckout }}</small>
+              <small *ngIf="!isFriday(row.date)">No OT max: {{ row.suggestions.maxNoOt }}</small>
+              <small *ngIf="!isFriday(row.date)">Vi phạm: {{ row.suggestions.violation }}</small>
+              <small>OT max: {{ row.suggestions.maxWithOt }}</small>
+            </ng-container>
+            <ng-template #emptySuggestion>-</ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
