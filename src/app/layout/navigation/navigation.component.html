@@ -1,0 +1,38 @@
+<aside class="sidebar">
+  <a
+    class="brand"
+    href="#"
+    (click)="$event.preventDefault(); navigate.emit('home')"
+    aria-label="SmartThings Home"
+    ><span class="brand-symbol"><app-icon name="sparkles" /></span
+    ><span>SmartThings<span class="brand-caption">WORKSPACE</span></span></a
+  >
+  <span class="nav-label">YOUR WORKSPACE</span>
+  <nav aria-label="Main navigation">
+    @for (item of items; track item.id) {
+      <button
+        type="button"
+        [class.active]="active === item.id"
+        [attr.aria-current]="active === item.id ? 'page' : null"
+        (click)="navigate.emit(item.id)"
+      >
+        <app-icon [name]="item.icon" /><span>{{ item.label }}</span>
+        @if (item.id === "life") {
+          <i class="notification-dot"></i>
+        }
+      </button>
+    }
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="workspace-status">
+      <span class="status-dot"></span> Demo workspace
+      <span class="demo-label">PREVIEW</span>
+    </div>
+    <div class="profile">
+      <span class="avatar">OT</span>
+      <div>
+        <strong>Office team</strong><small>Workspace administrator</small>
+      </div>
+    </div>
+  </div>
+</aside>

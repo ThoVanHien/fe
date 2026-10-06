@@ -1,0 +1,276 @@
+<app-navigation [active]="active" (navigate)="navigate($event)" />
+<div class="workspace-shell">
+  <header class="topbar">
+    <div class="location">
+      <span class="location-icon"><app-icon name="home" /></span>
+      <div><strong>Office HQ</strong><span>Company workspace</span></div>
+    </div>
+    <div class="header-right">
+      <span class="preview-pill"
+        ><span class="status-dot"></span> Demo mode</span
+      ><span class="header-divider"></span><span class="header-avatar">OT</span>
+    </div>
+  </header>
+  <main id="main-content">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">YOUR CONNECTED WORKSPACE</p>
+        <h1>
+          {{
+            active === "home"
+              ? "Welcome to your office"
+              : active === "devices"
+                ? "Devices"
+                : active === "life"
+                  ? "Life"
+                  : active === "routines"
+                    ? "Routines"
+                    : "Workspace settings"
+          }}<span class="heading-dot">.</span>
+        </h1>
+        <p class="page-subtitle">{{ title }}</p>
+      </div>
+      <button
+        class="customize-button"
+        type="button"
+        [attr.aria-label]="active === 'menu' ? 'Back to Home' : 'Customize favorites'"
+        (click)="navigate(active === 'menu' ? 'home' : 'menu')"
+      >
+        <app-icon [name]="active === 'menu' ? 'home' : 'settings'" /><span>{{
+          active === "menu" ? "Back to Home" : "Customize"
+        }}</span>
+      </button>
+    </div>
+
+    @if (active === "home" || active === "devices") {
+      <section class="overview" aria-label="Workspace overview">
+        <div class="overview-heading">
+          <span class="eyebrow">AT A GLANCE</span
+          ><span class="live-label">Sample data</span>
+        </div>
+        <div class="overview-grid">
+          <div class="overview-item">
+            <span class="stat-icon mint"><app-icon name="door" /></span>
+            <div>
+              <span class="stat-label">Doors & windows</span
+              ><strong>1 open <small>of 2 sensors</small></strong>
+            </div>
+          </div>
+          <div class="overview-item">
+            <span class="stat-icon blue"><app-icon name="humidity" /></span>
+            <div>
+              <span class="stat-label">Humidity</span
+              ><strong>62<small>%</small></strong>
+            </div>
+          </div>
+          <div class="overview-item">
+            <span class="stat-icon yellow"><app-icon name="bulb" /></span>
+            <div>
+              <span class="stat-label">Lights</span
+              ><strong>{{ lightsOn }} on <small>of 3 lights</small></strong>
+            </div>
+          </div>
+          <div class="overview-item">
+            <span class="stat-icon purple"
+              ><app-icon name="temperature"
+            /></span>
+            <div>
+              <span class="stat-label">Temperature</span
+              ><strong>24<small>°C</small></strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+    @if (active === "home" || active === "life") {
+      <section class="security-panel">
+        <div class="security-info">
+          <span class="security-icon"><app-icon name="shield" /></span>
+          <div>
+            <h2>Home Monitor <span class="small-badge">DEMO</span></h2>
+            <p>
+              Security mode
+              <span class="security-status">{{ security.toLowerCase() }}</span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="security-actions"
+          role="group"
+          aria-label="Demo security mode"
+        >
+          @for (mode of securityModes; track mode) {
+            <button
+              type="button"
+              [class.selected]="security === mode"
+              [attr.aria-pressed]="security === mode"
+              (click)="setSecurity(mode)"
+            >
+              <app-icon
+                [name]="
+                  mode === 'Disarmed'
+                    ? 'unlock'
+                    : mode === 'Armed Stay'
+                      ? 'home'
+                      : 'lock'
+                "
+              /><span>{{ mode }}</span>
+              @if (security === mode) {
+                <span class="selection-dot"></span>
+              }
+            </button>
+          }
+        </div>
+      </section>
+    }
+    @if (active === "home" || active === "devices" || active === "life") {
+      <section aria-labelledby="devices-title">
+        <div class="section-heading">
+          <h2 id="devices-title">
+            {{
+              active === "home"
+                ? "Favorites"
+                : active === "life"
+                  ? "Safety & comfort"
+                  : "All devices"
+            }}
+            <span class="count">{{ visibleDevices.length }}</span>
+          </h2>
+          <span class="section-note">{{
+            active === "home"
+              ? "Your everyday essentials"
+              : "Office HQ · Sample devices"
+          }}</span>
+        </div>
+        @if (active !== "life") {
+          <div
+            class="room-filters"
+            role="group"
+            aria-label="Filter devices by room"
+          >
+            @for (item of rooms; track item) {
+              <button
+                type="button"
+                [class.selected]="room === item"
+                [attr.aria-pressed]="room === item"
+                (click)="room = item"
+              >
+                {{ item }}
+              </button>
+            }
+          </div>
+        }
+        <div class="device-grid">
+          @for (device of visibleDevices; track device.id) {
+            <app-device-card
+              [device]="device"
+              (toggle)="toggleDevice($event)"
+            />
+          } @empty {
+            <div class="empty-state">
+              <app-icon name="devices" />
+              <h3>No favorites in this room yet</h3>
+              <p>Choose devices in Customize to show them here.</p>
+              <button
+                type="button"
+                class="customize-button"
+                (click)="navigate('menu')"
+              >
+                Choose favorites
+              </button>
+            </div>
+          }
+        </div>
+      </section>
+    }
+    @if (active === "home" || active === "routines") {
+      <section aria-labelledby="routines-title">
+        <div class="section-heading">
+          <h2 id="routines-title">Routines <span class="count">3</span></h2>
+          @if (active === "home") {
+            <button
+              class="text-button"
+              type="button"
+              (click)="navigate('routines')"
+            >
+              View all <app-icon name="arrow" />
+            </button>
+          } @else {
+            <span class="section-note">Try an office routine in demo mode</span>
+          }
+        </div>
+        <div class="routine-grid">
+          @for (routine of routines; track routine.id) {
+            <button
+              class="routine-card"
+              type="button"
+              (click)="runRoutine(routine.id)"
+              [attr.aria-label]="'Run ' + routine.name + ' in demo'"
+            >
+              <span class="routine-icon"
+                ><app-icon [name]="routine.icon" /></span
+              ><span class="routine-copy"
+                ><strong>{{ routine.name }}</strong
+                ><small>{{ routine.description }}</small></span
+              ><span class="routine-play"><app-icon name="routines" /></span>
+            </button>
+          }
+        </div>
+      </section>
+    }
+    @if (active === "menu") {
+      <section class="settings-panel">
+        <p class="eyebrow">MAKE IT YOURS</p>
+        <h2>Choose your favorites</h2>
+        <p class="page-subtitle">
+          Keep the devices you use most on your Home dashboard.
+        </p>
+        <div class="favorite-list">
+          @for (device of devices; track device.id) {
+            <label
+              ><span class="favorite-icon"
+                ><app-icon [name]="device.icon" /></span
+              ><span
+                ><strong>{{ device.name }}</strong
+                ><small>{{ device.room }}</small></span
+              ><input
+                type="checkbox"
+                [checked]="device.favorite"
+                (change)="toggleFavorite(device.id)"
+            /></label>
+          }
+        </div>
+      </section>
+      <section class="connection-note">
+        <app-icon name="shield" />
+        <div>
+          <h2>SmartThings connection</h2>
+          <p>
+            This preview uses sample data. PAT authentication and live device
+            controls will be connected in the next phase.
+          </p>
+        </div>
+      </section>
+    }
+    <footer>
+      <span class="footer-brand"
+        ><app-icon name="sparkles" /> A connected office. A better
+        workday.</span
+      ><span>UI preview <span class="footer-dot">·</span> Sample data</span>
+    </footer>
+  </main>
+</div>
+<div class="announcement" role="status" aria-live="polite">
+  @if (message) {
+    <span
+      ><app-icon name="check" />{{ message
+      }}<button
+        type="button"
+        aria-label="Dismiss notification"
+        (click)="message = ''"
+      >
+        ×
+      </button></span
+    >
+  }
+</div>
