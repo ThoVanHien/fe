@@ -40,6 +40,32 @@ src/app/
 - Refresh trang sẽ khôi phục dữ liệu mẫu. Life hiển thị cảm biến; Devices hiển thị cả thiết bị không được chọn Favorites.
 - Sparkline là minh họa thiết kế, chưa có dữ liệu lịch sử.
 
+## Deploy lên GitHub Pages
+
+Workflow `.github/workflows/deploy-pages.yml` tự build và deploy khi push lên branch `smartthings-web`. Chỉ thư mục `dist/angular-learning/browser` được publish, nên trang sẽ hiển thị app Angular.
+
+Thiết lập một lần:
+
+1. Mở repo GitHub → **Settings → Pages → Build and deployment**.
+2. Đổi **Source** từ **Deploy from a branch** sang **GitHub Actions**.
+3. Commit và push workflow cùng tài liệu lên branch `smartthings-web`.
+4. Trong **Actions**, chờ workflow **Deploy SmartThings to GitHub Pages** thành công.
+5. Mở `https://thovanhien.github.io/fe/`.
+
+Nếu environment `github-pages` chỉ cho deploy từ branch mặc định, vào **Settings → Environments → github-pages** và cho phép branch `smartthings-web`. Có thể chạy lại workflow thủ công nếu workflow đã có trên branch mặc định, chọn branch `smartthings-web` khi chạy.
+
+Workflow dùng Node.js 24 và pnpm 12.3.4, cài dependency theo lockfile, lấy base path từ cấu hình Pages để Angular tải đúng JS/CSS dưới `/fe/` (hoặc `/` khi dùng custom domain).
+
+Kiểm tra bản build cho URL hiện tại ở local:
+
+```sh
+pnpm exec ng build --configuration production --base-href /fe/
+```
+
+Các mục điều hướng hiện đổi state trong dashboard, chưa dùng route con nên không cần cấu hình fallback URL. Khi thêm route thật, cần xử lý deep link trên Pages, ví dụ dùng hash routing.
+
+Bản publish hiện là UI demo với dữ liệu mẫu. Không đưa PAT hoặc dữ liệu nội bộ nhạy cảm vào bundle public.
+
 ## Bước kết nối API sau
 
 Phiên bản này chưa gọi API, chưa nhận hoặc lưu PAT. Nhãn Demo/Sample data hiển thị rõ trên giao diện. Các thao tác điều khiển chỉ thay đổi state local.
